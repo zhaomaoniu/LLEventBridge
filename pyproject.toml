@@ -1,0 +1,15 @@
+[project]
+name = "EventBridge"
+version = "0.0.1"
+description = "转发事件 & 开放API"
+authors = [
+    {name = "zhaomaoniu", email = "2667292003@qq.com"},
+]
+dependencies = [
+    "llpy-helper-lib>=2.13.1",
+    "pyyaml>=6.0.1",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+
