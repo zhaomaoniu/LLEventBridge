@@ -21,6 +21,7 @@ http_server.listen(config["HttpHost"], config["HttpPost"])
 api_handler = APIHandler(http_server, mc, config["Token"], handler)
 
 setInterval(websocket.reconnect, config["ReconnectInterval"] * 1000)
+setInterval(websocket.heartbeat, config["HeartbeatInterval"] * 1000)
 
 
 mc.listen("onPreJoin", event_forwarder.on_pre_join)

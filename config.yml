@@ -13,6 +13,9 @@ Token: your_token
 ReconnectInterval: 5
 # WebSocket 重连间隔, 单位为秒, 默认为 5 秒
 
+HeartbeatInterval: 5
+# 心跳间隔, 单位为秒, 默认为 5 秒
+
 Timeout: 60
 # 缓存对象的超时时间, 单位为秒, 默认为 60 秒
 

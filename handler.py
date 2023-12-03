@@ -20,13 +20,14 @@ class Handler:
         for key, obj in data.items():
             if key != "event_name" or not isinstance(obj, (str, int, float)):
                 self.objects[self.idx] = {"obj": obj, "time": int(time.time())}
-                result.append({"type": key, "index": self.idx})
+
+                if hasattr(obj, "name"):
+                    result.append({"type": key, "index": self.idx, "name": getattr(obj, "name")})
+                else:
+                    result.append({"type": key, "index": self.idx})
                 self._idx += 1
 
-            if hasattr(obj, "name"):
-                direct_data.append({"type": key, "value": getattr(obj, "name")})
-
-            if isinstance(obj, (str, int, float)):
+            if isinstance(obj, (str, int, float)) or obj is None:
                 direct_data.append({"type": key, "value": obj})
         return {
             "event_name": data["event_name"],

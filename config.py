@@ -11,6 +11,7 @@ class Config(TypedDict):
     HttpPost: int
     Token: str
     ReconnectInterval: int
+    HeartbeatInterval: int
     Timeout: int
     ForwardEvents: List[str]
 
@@ -29,6 +30,8 @@ Token: your_token\n
 # 鉴权 Token, 由 .env 文件中的 LLBDS_TOKEN 决定\n\n
 ReconnectInterval: 5\n
 # WebSocket 重连间隔, 单位为秒, 默认为 5 秒\n\n
+HeartbeatInterval: 5\n
+# 心跳间隔, 单位为秒, 默认为 5 秒\n\n
 Timeout: 60\n
 # 缓存对象的超时时间, 单位为秒, 默认为 60 秒\n\n
 ForwardEvents:\n
@@ -56,6 +59,8 @@ def load_config() -> Optional[Config]:
             HttpHost="127.0.0.1",
             HttpPost=8081,
             Token="your_token",
+            ReconnectInterval=5,
+            HeartbeatInterval=5,
             Timeout=60,
             ForwardEvents=[
                 "PreJoin",

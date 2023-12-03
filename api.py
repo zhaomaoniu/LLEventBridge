@@ -18,6 +18,8 @@ class APIHandler:
 
         self.server.onGet("/llbds/_get_type", self._get_type)
         self.server.onGet("/llbds/_get_attr", self._get_attr)
+        self.server.onGet("/llbds/runcmd", self.runcmd)
+        self.server.onGet("/llbds/runcmdEx", self.runcmdEx)
 
     def is_authorized(self, request: HttpRequest) -> bool:
         return request.headers.get("Authorization")[0] == self.token
@@ -95,6 +97,46 @@ class APIHandler:
             ]
 
         response.write(json.dumps({"data": result}))
+        response.status = 200
+        response.reason = "OK"
+        response.setHeader("Content-Type", "text/plain")
+
+        return None
+
+    def runcmd(self, request: HttpRequest, response: HttpResponse) -> None:
+        # 鉴权
+        if not self.is_authorized(request):
+            response.status = 401
+            response.reason = "Unauthorized"
+            return None
+
+        cmd: str = request.params["cmd"]
+
+        result = self.mc.runcmd(cmd)
+
+        response.write(json.dumps({"data": result}))
+        response.status = 200
+        response.reason = "OK"
+        response.setHeader("Content-Type", "text/plain")
+
+        return None
+
+    def runcmdEx(self, request: HttpRequest, response: HttpResponse) -> None:
+        # 鉴权
+        if not self.is_authorized(request):
+            response.status = 401
+            response.reason = "Unauthorized"
+            return None
+
+        cmd: str = request.params["cmd"]
+
+        result = self.mc.runcmdEx(cmd)
+
+        response.write(
+            json.dumps(
+                {"data": {"output": result["output"], "success": result["output"]}}
+            )
+        )
         response.status = 200
         response.reason = "OK"
         response.setHeader("Content-Type", "text/plain")
