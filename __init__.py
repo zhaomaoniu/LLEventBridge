@@ -29,4 +29,4 @@ for event in config["ForwardEvents"]:
     event_name = "".join(["_" + i.lower() if i.isupper() else i for i in event]).lstrip("_")
     if hasattr(event_forwarder, f"on_{event_name}"):
         logger.info(f"Listening event {event}...")
-        mc.listen(f"On{event}", getattr(event_forwarder, f"on_{event_name}"))
+        mc.listen(f"on{event}", getattr(event_forwarder, f"on_{event_name}"))
